@@ -160,8 +160,61 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.xmu.middleware.webchat2018.Webchat2018Application</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>${project.basedir}/lib</extdirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>BOOT-INF/classes/</targetPath>
+            </resource>
+
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/application*.yml</include>
+                    <include>**/application*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>**/application*.yml</exclude>
+                    <exclude>**/application*.properties</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 

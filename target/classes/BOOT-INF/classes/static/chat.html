@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+		<title>Webchat2018聊天室</title>
+	</head>
+
+	<body data="/ssm">
+
+		<div class="container-fluid">
+			<div class="chat">
+
+				<div class="siderbar">
+					<div class="m_card">
+						<header>
+							<img src="img/1 (1).jpg" alt="Coffee" class="avator" />
+							<p class="name">Coffee</p>
+						</header>
+						<footer>
+							<input type="text" class="search" placeholder="search user..." />
+						</footer>
+					</div>
+					<div class="m_list">
+						<ul class="display_friends">
+
+							<!--<li>
+								<img src="img/ngix.gif" alt="" class="avator" />
+								<p class="name">朋友2</p>
+							</li>-->
+						</ul>
+					</div>
+				</div>
+				<div class="main">
+					<div class="m_message">
+						<!--<ul>
+							<li>
+								<p class="time"><span>2018-05-27 21:53:17</span></p>
+								<div class="m_main_l">
+									<img src="img/2.png" alt="" class="avator_l" />
+									<div class="text_l">Hello，这是一个基于Vue + Webpack构建的简单chat示例，聊天记录保存在localStorge。简单演示了Vue的基础特性和webpack配置</div>
+								</div>
+							</li>
+						</ul>
+						<ul>
+							<li>
+								<p class="time"><span>2018-05-27 21:53:17</span></p>
+								<div class="m_main_r">
+									<div class="text_r">Hello</div>
+									<img src="img/1 (1).jpg" alt="" class="avator_r" />
+								</div>
+							</li>
+						</ul>
+
+						<ul>
+							<li>
+								<p class='time'><span>2018-05-27 21:53:17</span></p>
+								<div class='m_main_r'>
+									<div class='text_r'>Hello，这是一个基于Vue + Webpack构建的简单chat示例，聊天记录保存在localStorge。简单演示了Vue的基础特性和webpack配置 </div>
+									<img src='img/1 (1).jpg' alt='' class='avator_r' />
+								</div>
+							</li>
+						</ul>-->
+
+					</div>
+
+					<div class="m_text">
+						<div id="editor" onkeydown="key_send(event)">
+							<input placeholder="(输入Ctrl+Enter发送消息)" />
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="footer ">
+				<p>Webchat2018</p>
+				<p>Copyright @JackyHuang</p>
+			</div>
+
+	</body>
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/jquery-cookie/jquery.cookie.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/wangEditor.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript " src="js/chat.js "></script>
+
+</html>

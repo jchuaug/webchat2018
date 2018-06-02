@@ -1,0 +1,292 @@
+* {
+	box-sizing: border-box;
+}
+
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body,
+html {
+	height: 100%;
+	overflow: hidden;
+}
+
+body,
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: 14px/1.4em 'Helvetica Neue', Helvetica, 'Microsoft Yahei', Arial, sans-serif;
+	background: #f5f5f5;
+	background-image: url(../img/bg.jpg);
+	background-size: cover;
+	color: #4d4d4d;
+	font-smoothing: antialiased;
+}
+
+.chat {
+	width: 1000px;
+	height: 600px;
+	margin: 20px auto;
+	/*border: solid 1px #000000;*/
+	border-radius: 6px;
+}
+
+footer {
+	margin-top: 10px;
+}
+
+.chat .siderbar {
+	float: left;
+	width: 200px;
+	height: 100%;
+	background-color: #2e3238;
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+.m_card {
+	padding: 12px;
+	border-bottom: solid 1px #24272C;
+}
+
+.m_card img {
+	height: 40px;
+	width: 40px;
+}
+
+.m_card .foot {
+	margin-top: 10px;
+}
+
+.m_card .avator,
+.name {
+	vertical-align: middle;
+}
+
+.m_card .avator {
+	border-radius: 2px;
+}
+
+.m_card .name {
+	display: inline-block;
+	margin: 0 0 0 8px;
+	font-size: 16px;
+	color: #F4F4F4;
+}
+
+.m_card .search {
+	padding: 0 10px;
+	width: 100%;
+	font-size: 12px;
+	color: #fff;
+	height: 30px;
+	line-height: 30px;
+	border: solid 1px #3a3a3a;
+	border-radius: 4px;
+	outline: none;
+	background-color: #26292E;
+}
+
+
+/*m_list*/
+
+.m_list ul {
+	width: 200px;
+	list-style: none;
+	vertical-align: middle;
+}
+
+.m_list li {
+	padding: 10px;
+	width: 200px;
+	border-bottom: 1px solid #292C33;
+}
+
+.m_list li:hover {
+	padding: 10px;
+	border-bottom: 1px solid #292C33;
+	background-color: rgba(255, 255, 255, 0.03);
+}
+
+.m_list li.active {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.m_list img {
+	width: 30px;
+	height: 30px;
+}
+
+.m_list .avator,
+.name {
+	vertical-align: middle;
+}
+
+.m_list .avator {
+	border-radius: 2px;
+}
+
+.m_list .name {
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 0 0 12px;
+	color: #eee;
+}
+
+.chat .main {
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+	background-color: #eee;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+.m_message {
+	background-color: #EEEEEE;
+	height: 440px;
+	width: 800px;
+	padding: 10px 15px;
+	overflow-y: scroll;
+}
+
+.m_message ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.m_message li {
+	padding: 0;
+	margin-bottom: 15px;
+}
+
+.m_message .time {
+	margin: 7px 0;
+	text-align: center;
+}
+
+.m_message p {
+	margin: 0;
+}
+
+.m_message .time>span {
+	display: inline-block;
+	padding: 0 18px;
+	font-size: 12px;
+	color: #fff;
+	border-radius: 2px;
+	background-color: #dcdcdc;
+}
+
+
+/**
+ * 左边图标的聊天样式
+ */
+
+.m_main_l img {
+	width: 30px;
+	height: 30px;
+}
+
+.m_main_l .avator_l {
+	float: left;
+	margin: 0 10px 0 0;
+	border-radius: 3px;
+}
+
+.m_main_l .text_l {
+	display: inline-block;
+	padding: 0 10px;
+	position: relative;
+	max-width: 508px;
+	min-height: 30px;
+	line-height: 2.5;
+	font-size: 12px;
+	text-align: left;
+	background-color: #fafafa;
+	border-radius: 4px;
+}
+
+.m_main_l .text_l:before {
+	content: " ";
+	position: absolute;
+	top: 9px;
+	right: 100%;
+	border: 6px solid transparent;
+	border-right-color: #fafafa;
+}
+
+
+/**
+ * 右边图标的聊天样式
+ */
+
+.m_main_r img {
+	width: 30px;
+	height: 30px;
+}
+
+.m_main_r {
+	text-align: right;
+}
+
+.m_main_r .avator_r {
+	float: right;
+	margin: 0 0 0 10px;
+	border-radius: 3px;
+}
+
+.m_main_r .text_r {
+	display: inline-block;
+	position: relative;
+	padding: 0 10px;
+	max-width: 508px;
+	min-height: 30px;
+	line-height: 2.5;
+	font-size: 12px;
+	text-align: left;
+	background-color: #fafafa;
+	border-radius: 4px;
+}
+
+.m_main_r .text_r:after {
+	content: " ";
+	position: absolute;
+	top: 9px;
+	left:100% ;
+	border: 6px solid transparent;
+	border-left-color:#fafafa;
+}
+
+.m_text {
+	background-color: #FFFFFF;
+	height: 160px;
+	width: 800px;
+	border-top: solid 1px #ddd;
+	font-size: 12px;
+}
+
+.m_text #editor {
+	padding: 0;
+	margin: 0;
+	height: 160px;
+}
+
+.m_text input {
+	padding: 0;
+	margin: 0;
+	border: none;
+	font-size: 12px;
+	outline: none;
+}
+
+.footer {
+	text-align: center;
+	font-size: 12px;
+}

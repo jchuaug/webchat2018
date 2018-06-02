@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
+
+	</head>
+
+	<body>
+
+		<div class="body"></div>
+		<div class="grad"></div>
+		<div class="header">
+			<div>WebChat<span>2018</span></div>
+		</div>
+		<br>
+		<div class="login">
+			<input type="text" placeholder="username" name="username" id="username"><br>
+			<input type="password" placeholder="password" name="password" id="password"><br>
+			<input type="submit" value="Login" id="btn_login">
+			<div class="regist">
+				<a href="regist.html"><span>Don't hava accont?Regist</span></a>
+			</div>
+
+		</div>
+		<br />
+
+
+
+	</body>
+	<script src="js/prefixfree.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/jquery-cookie/jquery.cookie.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#btn_login").click(function(){
+				username=$("#username").val();
+			password=$("#password").val();
+			$.ajax({
+				type:'post',
+				url:'/login',
+				data:{
+					"username":username,
+					"password":password
+				},
+				success:function(result){
+					alert("登录成功，点击确定进入聊天！");
+                    /**
+					 * 登录成功，写入cookie,Cookie有效时间为关闭浏览器前
+                     */
+                    var username=result.user.username;
+                    var user_id=result.user.id;
+                    console.log(username+user_id);
+                    $.cookie("name",username);
+                    $.cookie("user_id",user_id);
+					window.location.href=result.url;
+				},error:function(result){
+					alert("登录失败，请重试！！");
+					window.location.href=result.url;
+				}
+			});
+			});
+			
+		});
+	</script>
+
+</html>
