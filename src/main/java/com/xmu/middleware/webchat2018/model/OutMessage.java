@@ -1,16 +1,17 @@
 package com.xmu.middleware.webchat2018.model;
 
-import java.util.Date;
+
 
 public class OutMessage {
-    private String form;
+    private String to;
+    private String from;
     private String content;
     private String time;
 
     @Override
     public String toString() {
         return "OutMessage{" +
-                "form='" + form + '\'' +
+                "form='" + from + '\'' +
                 ", content='" + content + '\'' +
                 ", time=" + time +
                 '}';
@@ -28,12 +29,27 @@ public class OutMessage {
         this.time = time;
     }
 
-    public String getForm() {
-        return form;
+    public OutMessage(String to, String from, String content, String time) {
+        this.to = to;
+        this.from = from;
+        this.content = content;
+        this.time = time;
     }
 
-    public void setForm(String form) {
-        this.form = form;
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public String getContent() {
@@ -51,4 +67,6 @@ public class OutMessage {
     public void setTime(String time) {
         this.time = time;
     }
+
+
 }

@@ -45,5 +45,12 @@ public class ResponseVO {
         this.user=user;
     }
 
-
+    @Override
+    public String toString() {
+        return "ResponseVO{" +
+                "statusCode=" + statusCode +
+                ", url='" + url + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }

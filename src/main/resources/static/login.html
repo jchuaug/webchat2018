@@ -52,9 +52,11 @@
                      */
                     var username=result.user.username;
                     var user_id=result.user.id;
-                    console.log(username+user_id);
+                    var user_avator=result.user.avatarLocation;
+               
                     $.cookie("name",username);
                     $.cookie("user_id",user_id);
+                     $.cookie("user_avator",user_avator);
 					window.location.href=result.url;
 				},error:function(result){
 					alert("登录失败，请重试！！");

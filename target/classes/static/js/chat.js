@@ -14,14 +14,17 @@ editor.customConfig.menus = [
 	'image' // 插入图片
 ]
 editor.create();
-
-var to="";
-var from ="";
+var user_id = ""
+var user_name = ""
+var friend_name = ""
+var user_avator = ""
+var friends_avator = ""
+var to = "";
+var from = "";
 var message = ""
-var timestamp=""
-var avatar_url=""
+var timestamp = ""
+var avatar_url = ""
 var stompClient = null;
-
 
 /**
  * 按下Ctrl+enter发送消息
@@ -58,18 +61,17 @@ Date.prototype.format = function(fmt) {
 	return fmt;
 }
 
-
-
 function send_msg() {
 	message = editor.txt.text();
 	timestamp = new Date().format("yyyy-MM-dd hh:mm:ss");
-	to = $(".m_list li.active p").text();
-    html_str = "<ul><li><p class='time'><span>" + timestamp + "<//span><//p>" +
-        "<div class='m_main_r'>" +
-        "<div class='text_r'>" + message + "</div>" +
-        "<img src='"+avatar_url+"'class='avator_r' //><//div><//li><//ul>";
-    $(".m_message").append(html_str);
-	
+//	to = $(".m_list li.active p").text();
+	html_str = "<ul><li><p class='time'><span>" + timestamp + "<//span><//p>" +
+		"<div class='m_main_r'>" +
+		"<div class='text_r'>" + message + "</div>" +
+		"<img src='" + user_avator + "'class='avator_r' //><//div><//li><//ul>";
+	$(".m_message").append(html_str);
+	$(".m_message").scrollTop(400);
+
 	sendName();
 	editor.txt.clear();
 }
@@ -77,12 +79,12 @@ function send_msg() {
 function connect(from) {
 	var socket = new SockJS('/endpoint-webchat2018');
 	stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/chat/single/'+from, function (result) {
-        	showContent(JSON.parse(result.body));
-        });
-    });
+	stompClient.connect({}, function(frame) {
+		console.log('Connected: ' + frame);
+		stompClient.subscribe('/chat/single/' + from, function(result) {
+			showContent(JSON.parse(result.body));
+		});
+	});
 }
 
 //断开连接
@@ -93,61 +95,180 @@ function disconnect() {
 	console.log("Disconnected");
 }
 
-
 //显示聊天记录
 function showContent(body) {
-	html_str="<ul><li> <p class='time'><span>"+body.time+"</span></p> <div class='m_main_l'>"+
-        "<img src='img/2.png' class='avator_l' />"
-        +"<div class='text_l'>" +body.content+ "</div> </div> </li> </ul>";
-	
+	if(body.from==to){
+		html_str = "<ul><li> <p class='time'><span>" + body.time + "</span></p> <div class='m_main_l'>" +
+		"<img src='"+friends_avator+"' class='avator_l' />" +
+		"<div class='text_l'>" + body.content + "</div> </div> </li> </ul>";
+
 	// html_str = "<ul><li><p class='time'><span>" + body.time + "<//span><//p>" +
 	// 	"<div class='m_main_r'>" +
 	// 	"<div class='text_r'>" + body.content + "</div>" +
 	// 	"<img src='img//1 (1).jpg' alt='' class='avator_r' //><//div><//li><//ul>";
-	    $(".m_message").append(html_str);
+	$(".m_message").append(html_str);
+	$(".m_message").scrollTop(400);
+	}
+	else{
+		console.log("信息对象不符合");
+	}
 }
 
+function sendName() {
+	//	to = $(".m_list li.active p").text();
+	//	form=$(".m_card .name").text();
+	stompClient.send("/app/single/chat", {}, JSON.stringify({
+		'content': message,
+		'time': timestamp,
+		'to': to,
+		'from': from
+	}));
+}
 
-$(".display_friends").on("click","li",function(){
-	$(this).toggleClass("active");
+/**
+ * 显示好友列表
+ */
+function showContact() {
+	/**
+	 * 发请求获取用户最近联系人列表
+	 */
+	$.ajax({
+		type: 'get',
+		url: '/me/listContact',
+		data: {
+			"id": user_id
+		},
+		success: function(result) {
+			for(var i = 0, l = result.length; i < l; i++) {
+				name = result[i]["username"];
+				avatar_url = result[i]["avatarLocation"];
+				//						alert(name+avatar_url);
+				str_content = "<li><img src='" + avatar_url + "' class='avator' />" +
+					"<p class='name'>" + name + "</p></li>";
+				$(".display_friends").append(str_content);
+
+			}
+		}
+	});
+}
+/**
+ * 显示最近联系
+ */
+function showRecentContact() {
+	/**
+	 * 发请求获取用户最近联系人列表
+	 */
+	$.ajax({
+		type: 'get',
+		url: '/me/listRecentContact',
+		data: {
+			"id": user_id
+		},
+		success: function(result) {
+			for(var i = 0, l = result.length; i < l; i++) {
+				name = result[i]["username"];
+				avatar_url = result[i]["avatarLocation"];
+				str_content = "<li><img src='" + avatar_url + "' class='avator' />" +
+					"<p class='name'>" + name + "</p></li>";
+				$(".display_friends").append(str_content);
+
+			}
+		}
+	});
+
+}
+
+function showChatMessage() {
+
+	$.ajax({
+		type: 'get',
+		url: '/me/listRecentChatMessage',
+		data: {
+			"username": user_name,
+			"friendname": friend_name
+		},
+		success: function(result) {
+			for(var i = 0, l = result.length; i < l; i++) {
+				var html_str=''
+				if(user_name == result[i]["from"]) {
+					/**
+					 *自己发送的消息
+					 */
+					var message = result[i]["content"];
+					var timestamp = result[i]["timestamp"]
+					html_str = "<ul><li><p class='time'><span>" + timestamp + "<//span><//p>" +
+						"<div class='m_main_r'>" +
+						"<div class='text_r'>" + message + "</div>" +
+						"<img src='" + user_avator + "'class='avator_r' //><//div><//li><//ul>";
+				} else {
+					var message = result[i]["content"];
+					var timestamp = result[i]["timestamp"]
+					html_str = "<ul><li> <p class='time'><span>" + timestamp + "</span></p> <div class='m_main_l'>" +
+						"<img src='"+friends_avator+"' class='avator_l' />" +
+						"<div class='text_l'>" + message + "</div> </div> </li> </ul>";
+
+				}
+				$(".m_message").append(html_str);
+				$(".m_message").scrollTop(400);
+
+			}
+		}
+	});
+
+}
+/**
+ * 显示我的收藏
+ */
+function showCollections() {}
+
+
+$("#recent_chat").on("click", showRecentContact());
+$("#contact").on("click", showContact());
+$("#collection").on("click", showCollections());
+$(".display_friends").on("click", "li", function() {
+	
+	friend_name = $(this).children('p').text();
+	to=friend_name;
+	friends_avator = $(this).children('img')[0].src;
+	$(".m_message_header").css("display", "block");
+	$(".m_message_header span").text(friend_name);
+	$(".m_message").empty();
+	showChatMessage();
 });
 
 
-function sendName() {
-//	to = $(".m_list li.active p").text();
-//	form=$(".m_card .name").text();
-    stompClient.send("/app/single/chat", {}, JSON.stringify({'content': message,'time':timestamp,'to':to,'from':from}));
-}
 $(function() {
 	/**
 	 * 页面加载时候自动建立连接
 	 */
-	var name = $.cookie("name");
-	var user_id = $.cookie("user_id");
+	user_name = $.cookie("name");
+	user_id = $.cookie("user_id");
+	user_avator = $.cookie("user_avator");
 	if(name == undefined || user_id == undefined) {
 		alert("登录失效，请重新登录");
 		window.location.href = "/login.html";
 	} else {
-		$(".m_card .name").text(name);
+		$(".m_card .name").text(user_name);
+		$(".m_card .avator").attr("src",user_avator);
 		$.ajax({
 			type: 'get',
-			url: '/me/listFrinds',
+			url: '/me/listRecentContact',
 			data: {
 				"id": user_id
 			},
 			success: function(result) {
 				for(var i = 0, l = result.length; i < l; i++) {
-						name=result[i]["username"];
-						avatar_url=result[i]["avatarLocation"];
-//						alert(name+avatar_url);
-						str_content="<li><img src='"+avatar_url+"' class='avator' />"+
-							"<p class='name'>"+name+"</p></li>";
-						$(".display_friends").append(str_content);
+					name = result[i]["username"];
+					url_avator = result[i]["avatarLocation"];
+					//						alert(name+avatar_url);
+					str_content = "<li><img src='" + url_avator + "' class='avator' />" +
+						"<p class='name'>" + name + "</p></li>";
+					$(".display_friends").append(str_content);
 
 				}
 			}
 		});
-		from=name;
+		from = user_name;
 
 		connect(from); //上线
 

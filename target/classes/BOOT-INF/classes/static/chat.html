@@ -20,14 +20,26 @@
 				<div class="siderbar">
 					<div class="m_card">
 						<header>
-							<img src="img/1 (1).jpg" alt="Coffee" class="avator" />
-							<p class="name">Coffee</p>
+							<img src="" alt="img" class="avator" />
+							<p class="name"></p>
 						</header>
 						<footer>
 							<input type="text" class="search" placeholder="search user..." />
 						</footer>
 					</div>
 					<div class="m_list">
+						<div class="m_list_tab">
+								<ul>
+									<li id="recent_chat"><i class="iconfont active">&#xe613;</i></li>
+									<li id="contact"><i class="iconfont">&#xe6a8;</i></li>
+									<li id="collection"><i class="iconfont">&#xe935;</i></li>
+								</ul>
+						</div>
+						<!--
+                        	作者：Mr_Jackey@aliyun.com
+                        	时间：2018-06-02
+                        	描述：好友列表
+                        -->
 						<ul class="display_friends">
 
 							<!--<li>
@@ -38,6 +50,17 @@
 					</div>
 				</div>
 				<div class="main">
+					<!--
+                    	作者：Mr_Jackey@aliyun.com
+                    	时间：2018-06-02
+                    	描述：聊天栏显示的消息人的名字
+                    -->
+					<div class="m_message_header"><span></span></div>
+					<!--
+                    	作者：Mr_Jackey@aliyun.com
+                    	时间：2018-06-02
+                    	描述：聊天栏主题内容部分
+                    -->
 					<div class="m_message">
 						<!--<ul>
 							<li>
@@ -86,6 +109,7 @@
 
 	</body>
 	<script src="/webjars/jquery/jquery.min.js"></script>
+	<!--<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>-->
 	<script src="/webjars/jquery-cookie/jquery.cookie.js"></script>
 	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
